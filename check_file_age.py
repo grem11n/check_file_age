@@ -1,5 +1,4 @@
 import os, time, stat
-import numpy as np
 import argparse
 from glob import glob
 
