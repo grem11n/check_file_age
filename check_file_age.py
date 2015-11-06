@@ -18,7 +18,7 @@ args = parser.parse_args( )
 def file_check(warning , critical):
     chk_crit = [0]
     chk_warn = [0]
-    files = [y for x in os.walk("/Users/yurii.rochniak/Training/") for y in glob(os.path.join(x[0], '*.py'))]
+    files = [y for x in os.walk("DIRECTORY") for y in glob(os.path.join(x[0], '*.py'))]
     log = open('log.txt', 'w')
     for f in files:
         st = os.stat(f)
