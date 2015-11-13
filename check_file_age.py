@@ -1,3 +1,5 @@
+## SPECIFY FILE PATTERN IN QUOTES!!!!
+## IT'S IMPORTANT!
 import os, time, stat
 import argparse
 from glob import glob
@@ -23,19 +25,18 @@ parser.add_argument("--critical",
                     help="threshold for critical alert e.g. 1000")
 args = parser.parse_args( )
 
-def file_check(warning , critical , directory , file_r):
+def file_check(warning , critical , directory , file_r , log):
     if not directory:
         directory = r"{}".format(os.path.dirname(os.path.realpath(__file__)))
     pattern = r'{}'.format(file_r)
     chk_crit = [0]
     chk_warn = [0]
     files = [y for x in os.walk(directory) for y in glob(os.path.join(x[0], pattern))]
-    log = open('log.txt', 'w')
+    log = open(log, 'w')
     for f in files:
         st = os.stat(f)
         mtime = st.st_mtime
         age = int(time.time() - mtime)
-        print age
         if age > int(critical):
             print >> log, f + " " + "is older than a threshold %s" % args.critical
             chk_crit.extend([1])
@@ -49,26 +50,19 @@ def file_check(warning , critical , directory , file_r):
         res = 0.5
     else:
         res = 0
-    print pattern
-    print directory
-    print files
-    print warning
-    print critical
-    print chk_crit
-    print chk_warn
     return res
     log.close()
 
 def main():
-    res = file_check(args.warning,args.critical,args.directory,args.file)
+    res = file_check(args.warning,args.critical,args.directory,args.file,args.log)
     if res == 1:
-        print "CRITICAL: There are outdated files"
+        print "CRITICAL: There are outdated files. Check the application log %s" % args.log
         exit(CRITICAL)
     elif res == 0.5:
-        print "WARNING: There are outdated files"
+        print "WARNING: There are outdated files. Check the application log %s" % args.log
         exit(WARNING)
     elif res == 0:
-        print "OK: There are no outdated files"
+        print "OK: There are no outdated files."
         exit(OK)
 
 if __name__ == "__main__":
