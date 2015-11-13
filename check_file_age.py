@@ -15,13 +15,10 @@ parser.add_argument("--directory",
 parser.add_argument("--file",
                      help="Search pattern")
 parser.add_argument("--log",
-                     default="/mnt/logs/outdated-files.log",
                      help="Where to store outdated files")
 parser.add_argument("--warning",
-                    default=2592000,
                     help="threshold for critical alert e.g. 1000")
 parser.add_argument("--critical",
-                    default=5184000,
                     help="threshold for critical alert e.g. 1000")
 args = parser.parse_args( )
 
