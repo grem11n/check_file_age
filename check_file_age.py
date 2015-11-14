@@ -25,7 +25,7 @@ args = parser.parse_args( )
 def file_check(warning , critical , directory , file_r , log):
     if not directory:
         directory = r"{}".format(os.path.dirname(os.path.realpath(__file__)))
-    pattern = r'{}'.format(file_r)
+    pattern = r"'{}'".format(file_r)
     chk_crit = [0]
     chk_warn = [0]
     files = [y for x in os.walk(directory) for y in glob(os.path.join(x[0], pattern))]
